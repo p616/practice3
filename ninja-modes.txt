@@ -1,0 +1,103 @@
+
+set[2,2,2,3,3,4,4]
+
+set of updates (i.e. change index 2 to 3)
+
+output mode (= most frequent element) after each update
+
+
+#include <iostream>
+#include <vector>
+#include <map>
+#include <set>
+
+using namespace std;
+
+
+vector<int> getMode(vector<int> &A, vector<vector<int> > &B) 
+{
+    vector<int> modes;
+    
+    //<number,count>
+    // quickly get frequency of n
+    map<int,int> counts;
+    for (int n : A) {
+        counts[n]++;
+    }    
+    
+    //<frequency count, set of numbers with same frequency>
+    // frequency counts sorted descending
+    // corresponding n's (set) sorted ascending
+    map<int, set<int, std::less<int>>, std::greater<int>> freqN;
+    for (int n : A) {
+        freqN[counts[n]].insert(n);
+    }
+    
+    // initialize return vector with mode from input data before any updates
+    int modeCount = freqN.begin()->first;
+    modes.push_back(*freqN[modeCount].begin()); 
+    
+    // apply updates
+    for (auto v : B) {
+        // out with the old (index in B is not zero based)
+        int replaceN = A[v[0]-1];
+        int replaceCount = counts[replaceN];
+        // remove replace N from current mode bucket
+        // if replace N was the only element in the bucket set, remove bucket altogether
+        if (freqN[replaceCount].size() == 1) {
+            freqN.erase(replaceCount);
+        } else {
+            freqN[replaceCount].erase(replaceN);
+        }
+        // decrement replace N's frequency count
+        counts[replaceN]--;
+        // unless frequency count becoming zero, add to new mode bucket set
+        if (replaceCount != 1) {
+            freqN[replaceCount-1].insert(replaceN);
+        }
+
+        // in with the new 
+        int newN = v[1];
+        int newCount = counts[newN];
+        // if new N frequency is not currently zero (is existing number), remove from old mode bucket set
+        // if new N was only element in the bucket set, remove bucket altogether
+        if (newCount != 0) {
+            if (freqN[newCount].size() == 1) {
+                freqN.erase(newCount);
+            } else {
+                freqN[newCount].erase(newN);
+            }
+        }
+        // increment new N's frequency count
+        counts[newN]++; 
+        // add new N to new mode bucket set
+        freqN[newCount+1].insert(newN);
+
+        // finally, update original array to reflect the change (index in B is not zero based)
+        A[v[0]-1] = v[1];
+        
+        // add new mode to return vector
+        int newMax = freqN.begin()->first;
+        modes.push_back(*freqN[newMax].begin());
+    }
+    
+    return modes;
+}
+
+int main()
+{
+    // 2 2 2 3 3 4 4
+    // 3 2 2 3 3 4 4 [1,3]
+    // 3 2 2 3 4 4 4 [5,4]
+    // 3 3 2 3 4 4 4 [2,3]
+    // { 2, 3, 4, 3 }
+    vector<int> v { 2, 2, 2, 3, 3, 4, 4 };
+    vector<vector<int>> vv = { {1,3}, {5,4}, {2,3} };
+    
+    vector<int> modes = getMode(v,vv);
+    for (auto i : modes) {
+        cout << i << " ";
+    }
+
+    return 0;
+}

@@ -1,0 +1,14 @@
+	this.insert=function(head,data){
+          //complete this method
+          if (head == null) {
+            head = new Node(data);
+          }
+          else {
+            var lastNode = head;
+            while (lastNode.next !== null) {
+                lastNode = lastNode.next;
+            }
+            lastNode.next = new Node(data); 
+          }
+          return head;
+    };

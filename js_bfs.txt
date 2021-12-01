@@ -1,0 +1,24 @@
+    // Start of function levelOrder
+    this.levelOrder = function(root) {
+
+        // Add your code here
+        // To print values separated by spaces use process.stdout.write(someValue + ' ')
+        if (!root) {
+            return;
+        }
+        
+        var queue = new Array();
+        queue.push(root);
+        
+        while (queue.length) {
+            const node = queue.shift();
+            process.stdout.write(node.data + " ");
+            
+            if (node.left) {
+                queue.push(node.left);
+            }
+            if (node.right) {
+                queue.push(node.right);
+            }
+        }
+	}; // End of function levelOrder

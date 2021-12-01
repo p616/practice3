@@ -1,0 +1,23 @@
+//binary tree as array:
+//determine larger sum of left and right children...
+
+const childSum = (arr, index) => {
+    if (index >= arr.length || arr[index] === -1) {
+        return 0;
+    }
+    
+    return arr[index] + childSum(arr, 2 * index + 1) + childSum(arr, 2 * index + 2);
+}
+
+const solution = (arr) => {
+    // Type your solution here
+    if (arr.length === 0 || arr.length === 1) {
+        return "";
+    }
+    
+    var left = childSum(arr, 1);
+    var right = childSum(arr, 2);
+    
+    return (left > right ? "Left" : left === right ? "" : "Right");
+};
+

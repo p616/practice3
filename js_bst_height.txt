@@ -1,0 +1,14 @@
+    // Start of function getHeight
+    this.getHeight = function(root) {
+
+        if (!root) {
+// if root is 0 return -1, if 1 return 0
+            return -1;
+        }
+        
+        var lH = this.getHeight(root.left);
+        var rH = this.getHeight(root.right);
+        
+        return (Math.max(lH, rH) + 1);
+
+    }; // End of function getHeight

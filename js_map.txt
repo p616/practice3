@@ -1,0 +1,19 @@
+function processData(input) {
+    //Enter your code here
+    let inarr = input.split('\n');
+    let m = new Map();
+    let i=1;
+    for (; i<=inarr[0]; ++i) {
+        let pair = inarr[i].split(' ');
+        m.set(pair[0], pair[1]);
+    }
+    for (; i<inarr.length; ++i) {
+        let val = m.get(inarr[i]);
+        if (!val) {
+            console.log('Not found');
+            continue;
+        }
+        console.log(inarr[i] + '=' + val);
+    }
+
+} 

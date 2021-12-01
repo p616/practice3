@@ -1,0 +1,27 @@
+20. What is DOM?
+
+DOM stands for Document Object Model.
+
+DOM is a programming interface for HTML and XML documents.
+
+When the browser tries to render a HTML document, it creates an object based on the HTML document called DOM. Using this DOM, we can manipulate or change various elements inside the HTML document.
+
+Example of how HTML code gets converted to DOM:
+
+<tml>
+  <ead>
+    <title>DOM EX<\title>
+  <\ead>
+  <body>
+    <p id=para1>ello<\p>
+    <p id=para2>ey<\p>
+  <\body>
+<\tml>
+
+HLR
+			<html>
+		  <head>      <body>
+            <title>         <p>    <p>
+              
+	     DOM           Hello    Hey 
+	   example

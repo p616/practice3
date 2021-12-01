@@ -1,0 +1,35 @@
+remove duplicates for both list and array in below
+
+    this.removeDuplicates=function(head){
+      //Write your code here
+      // remove dupes in an array...
+      
+      if (!head) {
+          return head;
+      }
+      
+      var prevNode = head;
+      var nextNode = head.next;
+      while (nextNode) {
+          if (prevNode.data === nextNode.data) {
+              prevNode.next = nextNode.next;
+          }
+          else {
+              prevNode = nextNode;
+          }
+          nextNode = nextNode.next;
+      }
+      return head;
+      /*
+      if (!this.head) {
+          return this.head;
+      }
+      var noDupes = this.head.filter((element, index, array) => {
+          if (index === 0) {
+              return true;
+          }
+          return (element != array[index-1]);
+      });
+      return noDupes;
+      */
+    }

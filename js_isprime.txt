@@ -1,0 +1,17 @@
+isprime
+
+function processData(input) {
+    //Enter your code here
+    const arr = input.split("\n");
+    for (var i = 1; i <= arr[0]; ++i) {
+        var prime = true;
+        var sqRoot = Math.sqrt(arr[i]);
+        for (var div = Math.floor(sqRoot); div > 1; div--) {
+            if ((arr[i] % div) === 0) {
+                prime = false;
+                break;
+            }
+        }
+        console.log((prime && +arr[i] !== 1) ? 'Prime' : 'Not prime');
+    }
+} 
